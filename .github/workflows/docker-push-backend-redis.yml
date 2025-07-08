@@ -5,7 +5,7 @@ on:
     paths:
       - 'backend_redis/**'
       - '.github/workflows/docker-push-backend-redis.yml'
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build-and-push:
