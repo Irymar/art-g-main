@@ -1,0 +1,33 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+.teerraform.*
+terraform_docs/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Секрети
+.env
+*.pem
+*.key
+*.crt
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# IDE
+.idea/
+.vscode/
+
+# Системні
+*.zip
+*.exe
+.DS_Store
+Thumbs.db
