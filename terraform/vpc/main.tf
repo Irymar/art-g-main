@@ -41,7 +41,6 @@ resource "aws_eip" "nat" {
   }
 }
 
-# 2. NAT Gateway (в публічній підмережі №1)
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public[0].id
@@ -50,10 +49,9 @@ resource "aws_nat_gateway" "nat" {
     Name = "nat-gateway"
   }
 
-  depends_on = [aws_internet_gateway.igw] # Додамо трохи пізніше
+  depends_on = [aws_internet_gateway.igw]
 }
 
-# 3. Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
@@ -62,7 +60,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# 4. Route Table for private subnets
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
 
@@ -76,9 +73,27 @@ resource "aws_route_table" "private" {
   }
 }
 
-# 5. Route Table association with private subnets
 resource "aws_route_table_association" "private" {
   count          = length(aws_subnet.private)
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private.id
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "public-rt"
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  count          = length(aws_subnet.public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
 }
