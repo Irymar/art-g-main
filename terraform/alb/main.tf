@@ -54,7 +54,7 @@ resource "aws_security_group" "alb_sg" {
 
 resource "aws_lb_target_group" "frontend" {
   name        = "frontend-tg"
-  port        = 80
+  port        = 8002
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = var.vpc_id

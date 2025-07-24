@@ -13,7 +13,7 @@ resource "aws_ecs_task_definition" "frontend" {
       image     = var.image_url
       portMappings = [
         {
-          containerPort = 80
+          containerPort = 8002
           protocol      = "tcp"
         }
       ]
