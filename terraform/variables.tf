@@ -22,3 +22,7 @@ variable "backend_redis_image_url" {
   description = "Docker image URI for backend Redis"
   type        = string
 }
+variable "db_password" {
+  description = "RDS admin password"
+  type        = string
+}

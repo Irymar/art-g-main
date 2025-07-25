@@ -1,10 +1,9 @@
 resource "aws_security_group" "backend_rds_sg" {
   name        = "backend-rds-sg"
-  description = "Security Group for backend RDS"
+  description = "Allow backend RDS traffic"
   vpc_id      = var.vpc_id
 
   ingress {
-    description     = "Allow HTTP from frontend"
     from_port       = 8000
     to_port         = 8000
     protocol        = "tcp"
@@ -12,14 +11,9 @@ resource "aws_security_group" "backend_rds_sg" {
   }
 
   egress {
-    description = "Allow all outbound"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "backend-rds-sg"
   }
 }
